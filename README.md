@@ -1,5 +1,7 @@
 # 求职buddy
 
+> v1.3.8：新增网页右侧的 Buddy 快捷拉手，点击即可打开 Chrome 侧边栏。该入口仅创建本地按钮，不读取或上传网页内容。
+
 一个本地优先的 Chrome 求职与面试工作台。它把岗位管理、JD 与简历 OCR、面试知识库、STAR 计时练习和逐题复盘放在同一个侧边栏扩展中。
 
 ## 功能
@@ -61,6 +63,7 @@ python3 preview_server.py
 - `storage`：在本机保存工作台数据。
 - `sidePanel`：显示 Chrome 侧边栏。
 - `activeTab` 与 `scripting`：用户主动点击时读取当前招聘页。
+- `http://*/*` 与 `https://*/*`：在网页右侧显示打开侧边栏的 Buddy 拉手；拉手本身不读取页面正文。
 
 ## 开发与验证
 
@@ -69,6 +72,7 @@ python3 preview_server.py
 ```bash
 node --check dashboard.js
 node --check sidepanel.js
+node --check content-launcher.js
 node --check intelligence.js
 node --check service-worker.js
 python3 -m py_compile preview_server.py
