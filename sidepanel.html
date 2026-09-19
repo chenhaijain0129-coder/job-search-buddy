@@ -1,0 +1,8 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>面试侧栏</title><link rel="stylesheet" href="shared.css"><link rel="stylesheet" href="sidepanel.css"><link rel="stylesheet" href="brand.css"></head><body>
+<header><div class="side-brand"><img src="icons/icon32.png" alt=""><div><b>面试作战台</b><span>现场只看关键词</span></div></div><button id="openDashboard" class="secondary">完整看板</button></header>
+<main><div class="active-job"><label for="jobSelect">当前岗位</label><select id="jobSelect"></select><div id="jobMeta" class="muted"></div></div>
+<button id="captureBtn" class="capture">＋ 读取当前招聘页</button>
+<div class="quick-search"><input id="quickSearch" placeholder="搜索项目或问题…" aria-label="搜索"></div>
+<nav id="tabs"></nav><section id="content"></section></main>
+<dialog id="captureDialog"><div class="dialog-head"><h2>确认岗位信息</h2><button class="ghost" data-close>×</button></div><div class="fields"><div class="field"><label>公司</label><input id="cCompany"></div><div class="field"><label>岗位</label><input id="cRole"></div><div class="field"><label>地点</label><input id="cLocation"></div><div class="field"><label>JD 摘要</label><textarea id="cDescription"></textarea></div></div><div class="dialog-actions"><button class="secondary" data-close>取消</button><button class="primary" id="saveCapture">保存到看板</button></div></dialog>
+<div class="toast" id="toast"></div><script src="story-library.js"></script><script src="sidepanel.js"></script></body></html>
