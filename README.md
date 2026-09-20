@@ -1,6 +1,6 @@
 # 求职buddy
 
-> v1.3.8：新增网页右侧的 Buddy 快捷拉手，点击即可打开 Chrome 侧边栏。该入口仅创建本地按钮，不读取或上传网页内容。
+> v1.3.9：Buddy 拉手会用网址、标题和职位结构化标记轻量判断岗位页；你点击后才读取公司、岗位、地点与 JD 正文，并先进入人工核对窗口。
 
 一个本地优先的 Chrome 求职与面试工作台。它把岗位管理、JD 与简历 OCR、面试知识库、STAR 计时练习和逐题复盘放在同一个侧边栏扩展中。
 
@@ -41,9 +41,9 @@ python3 preview_server.py
 
 - 数据默认保存在 `chrome.storage.local`，不上传到远程服务器。
 - OCR 使用随项目提供的 Tesseract.js 与中文模型在本机处理。
-- 扩展仅在用户点击“读取当前招聘页”后，借助 `activeTab` 临时读取当前页面的职位信息。
+- 扩展只用网址、标题和 JobPosting 标记轻量判断岗位页；点击“识别这个岗位”或“读取当前招聘页”后，才临时读取页面中的职位信息与候选 JD 正文。
 - 示例知识库已匿名化，不包含作者简历、联系方式或前公司内部材料。
-- 在线 AI 接口尚未启用；请勿把 API 密钥直接写入扩展源码。
+- 可在“设置 → AI 模型”自行连接 Kimi 或 DeepSeek；API Key 默认只保留在当前 Chrome 会话，不进入备份或源码。
 
 更完整的说明见 [PRIVACY.md](PRIVACY.md)。
 
@@ -62,8 +62,9 @@ python3 preview_server.py
 
 - `storage`：在本机保存工作台数据。
 - `sidePanel`：显示 Chrome 侧边栏。
-- `activeTab` 与 `scripting`：用户主动点击时读取当前招聘页。
-- `http://*/*` 与 `https://*/*`：在网页右侧显示打开侧边栏的 Buddy 拉手；拉手本身不读取页面正文。
+- `activeTab` 与 `scripting`：用户主动点击时读取当前招聘页中的结构化职位信息与候选 JD 正文。
+- `http://*/*` 与 `https://*/*`：在网页右侧显示 Buddy 拉手，并用网址、标题和 JobPosting 标记做轻量岗位页判断；不在后台读取正文。
+- `api.deepseek.com` 与 `api.moonshot.cn`：仅在用户配置对应 API Key 并主动点击分析或测试连接时访问。
 
 ## 开发与验证
 

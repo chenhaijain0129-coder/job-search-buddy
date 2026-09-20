@@ -30,7 +30,11 @@
   icon.alt = "";
 
   const label = document.createElement("span");
-  label.textContent = "求职buddy";
+  const pageSignals = [location.pathname, document.title, document.querySelector('meta[property="og:title"]')?.content || ""].join(" ").toLowerCase();
+  const hasJobSchema = [...document.querySelectorAll('script[type="application/ld+json"]')].some((node) => /"@type"\s*:\s*"JobPosting"/i.test(node.textContent || ""));
+  const jobSignalCount = [/(?:^|[\/\s_-])(jobs?|careers?|positions?|recruit(?:ment)?)(?:[\/\s_-]|$)/i,/招聘|职位|岗位|实习|校招|社会招聘|job description|responsibilities|qualifications/i].filter((pattern) => pattern.test(pageSignals)).length;
+  const looksLikeJob = hasJobSchema || jobSignalCount >= 2;
+  label.textContent = looksLikeJob ? "识别这个岗位" : "求职buddy";
 
   button.append(icon, label);
   shadow.append(style, button);
@@ -39,7 +43,7 @@
   button.addEventListener("click", () => {
     if (button.dataset.state === "opening") return;
     button.dataset.state = "opening";
-    chrome.runtime.sendMessage({ type: "open-side-panel" }, (response) => {
+    chrome.runtime.sendMessage({ type: "open-side-panel", capture: looksLikeJob }, (response) => {
       button.dataset.state = "";
       if (chrome.runtime.lastError || !response?.ok) button.title = "请点击 Chrome 工具栏中的求职buddy图标";
     });
